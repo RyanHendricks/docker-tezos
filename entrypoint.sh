@@ -3,7 +3,7 @@
 # exit script on any error
 set -e
 
-rm -r /root/.tezos-node/
+# rm /root/.tezos-node/identity.json
 # tezos-node identity generate 1
 # tezos-node upgrade storage
 
