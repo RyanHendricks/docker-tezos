@@ -3,7 +3,7 @@ jobs:
   build:
     environment:
       IMAGE_NAME: ryanhendricks/docker-tezos
-      VERSION: cors-union
+      VERSION: latest
     docker:
       - image: circleci/buildpack-deps:stretch
     steps:
