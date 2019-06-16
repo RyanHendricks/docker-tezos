@@ -21,7 +21,4 @@ RUN chmod u+x /usr/local/bin/entrypoint.sh
 
 WORKDIR /home/tezos
 
-
 ENTRYPOINT [ "/usr/local/bin/entrypoint.sh" ]
-
-
