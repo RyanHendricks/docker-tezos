@@ -15,34 +15,41 @@ Dockerized Tezos Full Node (Bootstrapped)
 
 ---
 
+## Background
+
+Before starting the node, the entrypoint script downloads and imports a snapshot (courtesy of [tzdutch.com](tzdutch.com)) which drastically reduces the time required to sync. (If you have an alternate snapshot that is preferred you can simply change the url in the entrypoint.sh script).
+
+Additionally, there is only one container created whereas running the Tezos official script creates more than a few.
+
 ## Prerequisites
 
 - Docker
-- Docker-Compose (optional)
 
 ## Quick Start
 
 The image can be run without any configuration and defaults to mainnet.
 
-Before starting the node, the entrypoint script downloads and imports a snapshot (courtesy of [tzdutch.com](tzdutch.com)) which drastically reduces the time required to sync.
-
 ```bash
-docker  run --rm -d -P ryanhendricks/docker-tezos:latest
 
-# Feel free to use an alternate seed node although without one the node will have issues starting
+docker  run --rm -d -P ryanhendricks/docker-tezos:latest
 
 ```
 
+## Supervisor
+
+The image uses Supervisor to run the tezos node at container runtime. Supervisor also restarts the tezos-node process should it fail for some reason.
+
 ## Configuration
 
-### Config.toml Parameters
+The built in configuration implemented at runtime by the supervisor process is as follows:
 
-- The config.toml is created dynamically when starting the container.
-- All parameters specified in the standard config.toml file can be set using environmental variables with the same as the config parameter but in all caps.
-- If left unset the default values will be used.
-- Parameters can be set directly by modifying the config.toml portion of ./scripts/entrypoint.sh if you are cloning and building the image yourself.
+```sh
 
+tezos-node run --history-mode full --rpc-addr 0.0.0.0:8732 --cors-header='content-type' --cors-origin='*'
 
+```
+
+Modifications can be made by simply changing the start command in the [./supervisor/conf.d/supervisor-tezos.conf](./supervisor/conf.d/supervisor-tezos.conf) file.
 
 ## Build
 
@@ -54,14 +61,21 @@ docker build --rm -f Dockerfile -t docker-tezos:latest .
 
 ## Running
 
-WIP
+### Standalone Docker
 
-## Supervisor
+```bash
+# This assumes you built the image with the tag docker-tezos:latest
+docker  run --rm -d -P docker-tezos:latest
 
-The image uses Supervisor to run the tezos node at container runtime. Supervisor also restarts the node process should it fail for some reason.
+```
 
 ## NOTES
 
+At this time, if the process (tezos-node) fails it will be restarted without requiring the container to be restarted. However, if the container restarts, the sync process will start from the beginning. Although it only takes about an hour to have a fully synced Tezos node this not ideal for some use cases. Fortunately persistent data volume and a more dynamic initialization process are in the works.
+
+## Issues
+
+Questions, issues, deployment troubles, suggestions, etc., are all welcomed.
 
 ## Contributing
 
