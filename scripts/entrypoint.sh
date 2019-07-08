@@ -23,13 +23,14 @@ if [ ! -d "/root/tezos-data" ]; then
   echo "Cleaning up..."
   cd /root/tezos-data
   rm -r /tmp/bootstrap
-  
+  cp /root/.tezos-node/version.json /root/tezos-data/version.json
 fi
 
 
 if [ ! -f "/root/tezos-data/identity.json" ]; then
   echo "No identity file found, generating new identity for Tezos node"
   tezos-node identity generate
+  cp /root/.tezos-node/identity.json /root/tezos-data/identity.json
 fi
 
 
