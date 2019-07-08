@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     environment:
-      IMAGE_NAME: ryanhendricks/docker-tezos:$CIRCLE_SHA1
+      IMAGE_NAME: ryanhendricks/docker-tezos
     docker:
       - image: circleci/buildpack-deps:stretch
     steps:
