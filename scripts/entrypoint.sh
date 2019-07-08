@@ -10,8 +10,8 @@ if [ ! -d "/root/tezos-data" ]; then
   mkdir -p /root/tezos-data
  
   echo "Creating Tezos configuration"
-  tezos-node config init --data-dir=/root/tezos-data
-  tezos-node config update --data-dir=/root/tezos-data
+  tezos-node config init --data-dir /root/tezos-data
+  tezos-node config update --data-dir /root/tezos-data
 
   echo "Bootstrapping Tezos Node"
   mkdir -p /tmp/bootstrap
@@ -33,6 +33,10 @@ if [ ! -f "/root/tezos-data/identity.json" ]; then
   cp /root/.tezos-node/identity.json /root/tezos-data/identity.json
 fi
 
+if [ ! -f "/root/tezos-data/version.json" ]; then
+  tezos-node config init --data-dir /root/tezos-data
+  tezos-node config update --data-dir /root/tezos-data
+fi
 
 # exec tezos-node run --data-dir=/root/tezos-data --history-mode full --rpc-addr 0.0.0.0:8732 --cors-header='content-type' --cors-origin='*'
 echo "Starting Tezos Node via Supervisor Process Manager"
