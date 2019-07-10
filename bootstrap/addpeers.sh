@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Script source: https://gist.github.com/utdrmac/2125a8514960e163837e86bc934f19b6
+
 # This is a helper script for adding more peers to an already
 # running tezos-node. It first queries for, and adds all
 # foundation nodes, then queries tzscan's API for more peers and
