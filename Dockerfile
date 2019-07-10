@@ -19,6 +19,6 @@ RUN chmod u+x /bootstrap/addpeers.sh
 COPY /scripts/entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod u+x /usr/local/bin/entrypoint.sh
 
-WORKDIR /home/tezos
+WORKDIR /root
 
 ENTRYPOINT [ "/usr/local/bin/entrypoint.sh" ]
