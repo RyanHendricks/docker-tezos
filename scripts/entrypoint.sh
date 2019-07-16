@@ -3,9 +3,9 @@
 # exit script on any error
 set -e
 
-if [ ! -d "/root/tezos-data" ]; then
-  echo "Creating directory for Tezos data"
-  mkdir -p /root/tezos-data
+if [ ! -d "/root/tezos-data/store" ]; then
+  # echo "Creating directory for Tezos data"
+  # mkdir -p /root/tezos-data
 
   echo "Bootstrapping Tezos Node"
   mkdir -p /tmp/bootstrap

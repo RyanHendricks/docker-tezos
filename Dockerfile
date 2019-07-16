@@ -15,10 +15,14 @@ COPY /bootstrap/identity.json /bootstrap/identity.json
 COPY /bootstrap/version.json /bootstrap/version.json
 RUN chmod u+x /bootstrap/addpeers.sh
 
+# ENV TEZO_DATA=/root/tezos_data
+VOLUME ["/root/tezos_data"]
+# WORKDIR $TEZO_DATA
+
 # Add entrypoint script
 COPY /scripts/entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod u+x /usr/local/bin/entrypoint.sh
 
 WORKDIR /root
 
-ENTRYPOINT [ "/usr/local/bin/entrypoint.sh" ]
+STOPSIGNAL SIGINT
