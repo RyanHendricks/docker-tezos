@@ -3,7 +3,7 @@
 # exit script on any error
 set -e
 
-if [ ! -d "/root/tezos-data/store" ]; then
+if [ "$BOOTSTRAP" == "TRUE" ]; then
   # echo "Creating directory for Tezos data"
   # mkdir -p /root/tezos-data
 
