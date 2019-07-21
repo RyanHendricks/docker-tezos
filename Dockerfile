@@ -16,7 +16,7 @@ COPY /bootstrap/version.json /bootstrap/version.json
 RUN chmod u+x /bootstrap/addpeers.sh
 
 # ENV TEZO_DATA=/root/tezos_data
-VOLUME ["/root/tezos_data"]
+VOLUME ["/root/tezos-data"]
 # WORKDIR $TEZO_DATA
 
 # Add entrypoint script
