@@ -1,6 +1,7 @@
 # Docker-Tezos
 
-Dockerized Tezos Full Node (Bootstrapped)
+Dockerized Tezos Node
+Optional Full Node Bootstrapping
 
 ---
 
@@ -14,6 +15,10 @@ Dockerized Tezos Full Node (Bootstrapped)
 [![Codacy grade](https://img.shields.io/codacy/grade/c35da045d95b4f07b09948d19bacaa47.svg?logo=codacy)](https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=RyanHendricks/docker-tezos&amp;utm_campaign=Badge_Grade)
 
 ---
+
+## Getting Started
+
+
 
 ## Background
 

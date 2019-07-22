@@ -3,10 +3,12 @@
 # exit script on any error
 set -e
 
-if [ "$BOOTSTRAP" == "TRUE" ]; then
-  # echo "Creating directory for Tezos data"
-  # mkdir -p /root/tezos-data
+if [ ! -d "/root/tezos-data" ]; then
+  echo "Creating directory for Tezos data"
+  mkdir -p /root/tezos-data
+fi
 
+if [ "$BOOTSTRAP" == "TRUE" ]; then
   echo "Bootstrapping Tezos Node"
   mkdir -p /tmp/bootstrap
   cd /tmp/bootstrap
@@ -16,28 +18,46 @@ if [ "$BOOTSTRAP" == "TRUE" ]; then
   echo "Importing snapshot. This will take some time..."
   tezos-node snapshot import mainnet.full --data-dir /root/tezos-data
 
-  echo "Creating Tezos configuration"
-  tezos-node config init --data-dir /root/tezos-data
-  tezos-node config update --data-dir /root/tezos-data
-
   echo "Cleaning up..."
   cd /root/tezos-data
   rm -r /tmp/bootstrap
 fi
 
 
+echo "Creating Tezos configuration"
+tezos-node config init --data-dir /root/tezos-data
+tezos-node config update --data-dir /root/tezos-data
+
+
 if [ ! -f "/root/tezos-data/identity.json" ]; then
   echo "No identity file found, generating new identity for Tezos node"
-  tezos-node identity generate
+  tezos-node identity generate 1
   cp /root/.tezos-node/identity.json /root/tezos-data/identity.json
+  rm /root/.tezos-node/identity.json
 fi
 
 if [ ! -f "/root/tezos-data/version.json" ]; then
   cp /root/.tezos-node/version.json /root/tezos-data/version.json
+  rm /root/.tezos-node/version.json
 fi
 
 # The following line can be used to start the node without using supervisord
 # exec tezos-node run --data-dir=/root/tezos-data --history-mode full --rpc-addr 0.0.0.0:8732 --cors-header='content-type' --cors-origin='*'
+if [ "$NODE_TYPE" = "archive" ]; then
+
+  echo "Configuring node history mode as archive"
+  rm /etc/supervisor/conf.d/supervisor-tezos.conf
+  cd /etc/supervisor/conf.d/
+
+cat > supervisor-tezos.conf << EOF
+[program:tezos-node]
+command=tezos-node run --data-dir /root/tezos-data --history-mode ${NODE_TYPE:-full} --rpc-addr 0.0.0.0:8732 --cors-header='content-type' --cors-origin='*'
+redirect_stderr=true
+EOF
+
+cd /root/tezos-data
+
+fi
 
 echo "Starting Tezos Node via Supervisor Process Manager"
 exec supervisord --nodaemon --configuration /etc/supervisor/supervisord.conf

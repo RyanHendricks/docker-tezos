@@ -1,0 +1,19 @@
+version: '2'
+
+services:
+  docker-tezos:
+    container_name: tezos-node
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment: 
+      - BOOTSTRAP=FALSE
+      - NODE_TYPE=archive
+    restart: always
+    ports:
+      - "9732:9732"
+      - "8732:8732"
+    volumes:
+      - data:/root/tezos-data
+volumes:
+  data:
