@@ -85,7 +85,7 @@ docker  run --rm -d -P docker-tezos:latest
 ## NOTES
 
 At this time, if the process (tezos-node) fails it will be restarted without requiring the container to be restarted. Persistent storage mount implemented and restarting node does not restart the syncing process
-~~~~
+
 ## Issues
 
 Questions, issues, deployment troubles, suggestions, etc., are all welcomed.
