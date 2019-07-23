@@ -1,6 +1,8 @@
 # Docker-Tezos
 
-Dockerized Tezos Full Node (Bootstrapped)
+Dockerized Tezos Node
+Full or Archive History Mode
+Optional Bootstrapping for Full Node
 
 ---
 
@@ -15,9 +17,20 @@ Dockerized Tezos Full Node (Bootstrapped)
 
 ---
 
+## Configuration
+
+Simply build and run the container specifying the following ENV variables with the desired ~~options~~
+
+BOOTSTRAP
+  - TRUE
+  - FALSE
+NODE_TYPE
+  - full
+  - archive
+
 ## Background
 
-Before starting the node, the entrypoint script downloads and imports a snapshot (courtesy of [tzdutch.com](tzdutch.com)) which drastically reduces the time required to sync. (If you have an alternate snapshot that is preferred you can simply change the url in the entrypoint.sh script).
+Before starting the tezos-node, the entrypoint script downloads and imports a snapshot (only if BOOTSTRAP=TRUE) which drastically reduces the time required to sync. (If you have an alternate snapshot that is preferred you can simply change the url in the entrypoint.sh script).
 
 Additionally, there is only one container created whereas running the Tezos official script creates more than a few.
 
@@ -71,8 +84,8 @@ docker  run --rm -d -P docker-tezos:latest
 
 ## NOTES
 
-At this time, if the process (tezos-node) fails it will be restarted without requiring the container to be restarted. However, if the container restarts, the sync process will start from the beginning. Although it only takes about an hour to have a fully synced Tezos node this not ideal for some use cases. Fortunately persistent data volume and a more dynamic initialization process are in the works.
-
+At this time, if the process (tezos-node) fails it will be restarted without requiring the container to be restarted. Persistent storage mount implemented and restarting node does not restart the syncing process
+~~~~
 ## Issues
 
 Questions, issues, deployment troubles, suggestions, etc., are all welcomed.
