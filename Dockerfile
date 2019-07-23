@@ -20,6 +20,9 @@ RUN chmod u+x /bootstrap/addpeers.sh
 # Mount volume to store tezos-node data
 VOLUME ["/root/tezos-data"]
 
+EXPOSE 8732
+EXPOSE 9732
+
 # Add entrypoint script
 COPY /scripts/entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod u+x /usr/local/bin/entrypoint.sh
