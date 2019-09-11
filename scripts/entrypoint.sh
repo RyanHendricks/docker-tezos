@@ -17,11 +17,11 @@ if [ ! -d "/root/tezos-data/context" ]; then
     echo "Bootstrapping Tezos Node"
     mkdir -p /tmp/bootstrap
     cd /tmp/bootstrap
-    wget https://storage.googleapis.com/node-bootstraps/tezos/mainnet.full.tar.lz4
-    lz4 -d -v --rm mainnet.full.tar.lz4 | tar xf -
+    wget http://quicksync.chainlayer.io/tezos/tezos.mainnet.20190907.1342.full
+    # lz4 -d -v --rm mainnet.full.tar.lz4 | tar xf -
 
     echo "Importing snapshot. This will take some time..."
-    tezos-node snapshot import mainnet.full --data-dir /root/tezos-data
+    tezos-node snapshot import tezos.mainnet.20190907.1342.full --data-dir /root/tezos-data
 
     echo "Cleaning up..."
     cd /root/tezos-data
