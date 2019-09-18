@@ -7,8 +7,8 @@ services:
       context: .
       dockerfile: Dockerfile
     environment: 
-      - BOOTSTRAP=FALSE
-      - NODE_TYPE=archive
+      - BOOTSTRAP=TRUE
+      - NODE_TYPE=full
     restart: always
     ports:
       - "9732:9732"
